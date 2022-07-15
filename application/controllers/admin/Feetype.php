@@ -7,9 +7,11 @@ class Feetype extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->model("Feetype_model");
     }
 
     function index() {
+
         if (!$this->rbac->hasPrivilege('fees_type', 'can_view')) {
             access_denied();
         }
@@ -32,17 +34,49 @@ class Feetype extends Admin_Controller {
                 'type' => $this->input->post('name'),
                 'code' => $this->input->post('code'),
                 'description' => $this->input->post('description'),
+                "is_system"=>0,
+                "feecategory_id"=>0,
+                "is_active"=>0,
             );
-            $this->feetype_model->add($data);
+
+
+            $this->Feetype_model->add($data);
+
             $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>');
             redirect('admin/feetype/index');
         }
         $feegroup_result = $this->feetype_model->get();
         $data['feetypeList'] = $feegroup_result;
-
+       
         $this->load->view('layout/header', $data);
         $this->load->view('admin/feetype/feetypeList', $data);
         $this->load->view('layout/footer', $data);
+    }
+
+
+    function add_data(){
+             $data = array(
+                'type' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+                'description' => $this->input->post('description'),
+                "is_system"=>0,
+                "feecategory_id"=>0,
+                "is_active"=>0,
+            );
+
+
+            $check=$this->Feetype_model->add($data);
+            if($check){
+
+                $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>');
+            redirect('admin/feetype/index');
+
+            }
+            else{
+                $this->session->set_flashdata('msg', '<div class="alert alert-warning text-left">Whoops! something is wrong</div>');
+            redirect('admin/feetype/index');
+            }
+
     }
 
     function delete($id) {

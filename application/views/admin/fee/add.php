@@ -98,11 +98,16 @@
   <!-- Main content -->
   <section class="content">
   <div class="row">
+    <div class="col-sm-12">
+      <a href="<?php echo base_url()?>admin/fee/list" class="btn btn-primary p-font" style="float: right;font-weight: 900;margin-bottom: 10px;">
+        Fee List
+      </a>
+    </div>
 
     <div class="col-sm-12"> <?php if ($this->session->flashdata('msg')) { ?>
                                 <?php echo $this->session->flashdata('msg') ?>
                             <?php } ?></div>
-    <div class="col-sm-5 col-md-5 col-lg-5">
+    <div class="col-sm-12 col-md-12 col-lg-12">
 
   
 
@@ -110,7 +115,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Add Fee</h3>
                     </div>
-                    <form id="form1" action="<?php echo site_url('admin/classroom/add') ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                    <form id="form1" action="<?php echo site_url('admin/fee/add') ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                         <div class="box-body">
                            
                                 
@@ -128,7 +133,19 @@
                                    </select>
                                 <span class="text-danger"><?php echo form_error('studyclass'); ?></span>
                             </div>               
-                            
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Select Class</label><small class="req"> *</small>
+                               <select class="form-control" name="class">
+                                  
+                                     <option>Select Class</option>
+                                     <?php foreach($data['class'] as $class){?>
+                                      <option><?php echo $class['class'];?></option>
+
+                                     <?php  }
+                                     ?>
+                                   </select>
+                                <span class="text-danger"><?php echo form_error('year'); ?></span>
+                            </div>
                              <div class="form-group">
                                 <label for="exampleInputEmail1">Select Semester</label><small class="req"> *</small>
                                <select class="form-control" name="semester">
@@ -137,14 +154,7 @@
                                    </select>
                                 <span class="text-danger"><?php echo form_error('year'); ?></span>
                             </div>
-                             <div class="form-group">
-                                <label for="exampleInputEmail1">Select Class</label><small class="req"> *</small>
-                               <select class="form-control" name="class">
-                                     <option>Select Class</option>
-                                     
-                                   </select>
-                                <span class="text-danger"><?php echo form_error('year'); ?></span>
-                            </div>
+                             
 
                              <div class="form-group">
                                 <label for="exampleInputEmail1">Select Level</label><small class="req"> *</small>
@@ -152,6 +162,23 @@
                                      <option>Select Level</option>
                                      
                                    </select>
+                                <span class="text-danger"><?php echo form_error('year'); ?></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Select Fee Type</label><small class="req"> *</small>
+                               <select class="form-control" name="fee_type">
+                                     <option>Select Fee Type</option>
+                                     <?php foreach($feetype as $fee_list) {?>
+                                      <option><?php echo $fee_list['type'];?></option>
+                                       
+                                     <?php }?>
+                                     
+                                   </select>
+                                <span class="text-danger"><?php echo form_error('year'); ?></span>
+                            </div>
+                             <div class="form-group">
+                                <label for="exampleInputEmail1">Amount</label><small class="req"> *</small>
+                            <input type="number" name="amount" class="form-control" placeholder="Amount">
                                 <span class="text-danger"><?php echo form_error('year'); ?></span>
                             </div>
 
@@ -195,16 +222,7 @@
   
  
     </div>
-     <div class="col-sm-7 col-md-7 col-lg-7">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">ClassRoom List</h3>
-        </div>
-
-        
-      
-      </div>
-    </div>
+   
   </div>
   </section>
 </div>
@@ -263,8 +281,108 @@
     });
   //ajax calling for  get semester 
   $("select[name='year']").change(function(){
-   var year=$(this).val();
-   alert(year);
+
+
+
+    //------------------------------------------------//
+      //remove all option despite of first option
+      var option=$("select[name='level']").find("option");
+      $(option).each(function(i){
+        $(option[i+1]).remove();
+      });
+   
+      //end option
+
+       var option=$("select[name='semester']").find("option");
+      $(option).each(function(i){
+        $(option[i+1]).remove();
+      });
+      //---------------------------------------------//
+        
+  });
+  $("select[name='class']").change(function(){
+   var class_name=$(this).val();
+   var year=$("select[name='year']").val();
+   
+ 
+  
+   $.ajax({
+    type:"GET",
+    url:"<?php echo base_url()?>admin/fee/semester_details/?year="+year+"&class="+class_name,
+    success:function(response){
+    
+      console.log(response);
+        if(response.length>0){
+
+        response=JSON.parse(response);
+    var semester_data=(response.data);
+    var level_data=response.level;
+   
+     //semester add here on behalf of selected class
+
+     if(1){
+      var option=$("select[name='semester']").find("option");
+      $(option).each(function(i){
+        $(option[i+1]).remove();
+      });
+     
+        $(semester_data).each(function(index,data){
+        var option=document.createElement("OPTION");
+        option.value=data.name;
+        option.innerHTML=data.name;
+        $("select[name='semester']").append(option);
+
+      });
+
+        //end add semester on behalf of selected class
+
+        //add level and on behalf of selected class
+     if(1){
+
+      //remove all option despite of first option
+      var option=$("select[name='level']").find("option");
+      $(option).each(function(i){
+        $(option[i+1]).remove();
+      });
+
+      //end option
+
+      //add level
+      $(level_data).each(function(index,data){
+          var option=document.createElement("option");
+          option.innerHTML=data.level;
+          option.value=data.level;
+          $("select[name='level']").append(option);
+      });
+
+      //end level
+
+     }
+     else{
+      //remove all option despite of first option
+      var option=$("select[name='level']").find("option");
+      $(option).each(function(i){
+        $(option[i+1]).remove();
+      });
+       alert("Not any Classlevel  of this class");
+      //end option
+     }
+     }
+     else{
+       var option=$("select[name='semester']").find("option");
+      $(option).each(function(i){
+        $(option[i+1]).remove();
+      });
+
+        alert("Not any semester created");
+     }
+
+        }
+     
+     
+     
+    }
+   });
   });
 
   //end ajax calling for get semester

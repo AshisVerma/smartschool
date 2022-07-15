@@ -7,6 +7,7 @@ class Feetype_model extends MY_Model {
 
     public function __construct() {
         parent::__construct();
+        $this->load->database();
     }
 
     public function get($id = null) {
@@ -58,39 +59,55 @@ class Feetype_model extends MY_Model {
      * else an insert. One function doing both add and edit.
      * @param $data
      */
-    public function add($data) {
-        $this->db->trans_start(); # Starting Transaction
-        $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
-        //=======================Code Start===========================
-        if (isset($data['id'])) {
-            $this->db->where('id', $data['id']);
-            $this->db->update('feetype', $data);
-            $message = UPDATE_RECORD_CONSTANT . " On  fee type id " . $data['id'];
-            $action = "Update";
-            $record_id = $data['id'];
-           // $this->log($message, $record_id, $action);
+  //   public function add($data) {
+        
+  //       $this->db->trans_start(); # Starting Transaction
+  //       $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
+  //       //=======================Code Start===========================
+  //       if (isset($data['id'])) {
+  //           $this->db->where('id', $data['id']);
+  //           $this->db->update('feetype', $data);
+  //           $message = UPDATE_RECORD_CONSTANT . " On  fee type id " . $data['id'];
+  //           $action = "Update";
+  //           $record_id = $data['id'];
+  //          // $this->log($message, $record_id, $action);
             
-        } else {
-            $this->db->insert('feetype', $data);
-            $id = $this->db->insert_id();
-            $message = INSERT_RECORD_CONSTANT . " On  fee type id " . $id;
-            $action = "Insert";
-            $record_id = $id;
-          //  $this->log($message, $record_id, $action);
+  //       } else {
+
+        
+  //           $this->db->insert('feetype', $data);
+  //           $id = $this->db->insert_id();
+  //           $message = INSERT_RECORD_CONSTANT . " On  fee type id " . $id;
+  //           $action = "Insert";
+  //           $record_id = $id;
+  //         //  $this->log($message, $record_id, $action);
             
-        }
-		//======================Code End==============================
+  //       }
+		// //======================Code End==============================
 
-            $this->db->trans_complete(); # Completing transaction
-            /* Optional */
+  //           $this->db->trans_complete(); # Completing transaction
+  //           /* Optional */
 
-            if ($this->db->trans_status() === false) {
-                # Something went wrong.
-                $this->db->trans_rollback();
-                return false;
-            } else {
-                return $id;
-            }            
+  //           if ($this->db->trans_status() === false) {
+  //               # Something went wrong.
+  //               $this->db->trans_rollback();
+  //               return false;
+  //           } else {
+  //               return $id;
+  //           }            
+  //   }
+
+
+    function add($data){
+     $query=$this->db->insert("feetype",$data);
+     if($query){
+        
+        return true;
+     }
+     else{
+       
+        return false;
+     }
     }
 
     public function check_exists($str) {
@@ -128,8 +145,13 @@ class Feetype_model extends MY_Model {
         if ($query->num_rows() > 0) {
             return $query->row();
         } else {
-            return FALSE;
+            return false;
         }
+    }
+
+    function all(){
+        $result=$this->db->get("feetype")->result_array();
+        return $result;
     }
 
 }

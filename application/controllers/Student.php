@@ -34,9 +34,9 @@ class Student extends Admin_Controller
 
         $this->load->library('encoding_lib');
 
-        $this->load->model("classteacher_model");
+        $this->load->model(["classteacher_model","Studyyear_model"]);
 
-        $this->load->model(array("timeline_model", "student_edit_field_model"));
+        $this->load->model(array("timeline_model", "student_edit_field_model","Fee_model"));
 
         $this->blood_group        = $this->config->item('bloodgroup');
 
@@ -51,7 +51,7 @@ class Student extends Admin_Controller
     public function index()
 
     {
-
+       
 
 
         $data['title']       = 'Student List';
@@ -685,14 +685,13 @@ class Student extends Admin_Controller
     public function create()
 
     {
-
+       
         if (!$this->rbac->hasPrivilege('student', 'can_add')) {
 
             access_denied();
 
         }
-
-
+          
 
         $this->session->set_userdata('top_menu', 'Student Information');
 
@@ -743,9 +742,10 @@ class Student extends Admin_Controller
         $data['vehroutelist']       = $vehroute_result;
 
         $custom_fields              = $this->customfield_model->getByBelong('students');
+        $year                       =$this->Studyyear_model->get();
 
 
-
+      
         foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
 
             if ($custom_fields_value['validation']) {
@@ -824,7 +824,7 @@ class Student extends Admin_Controller
 
             $this->load->view('layout/header', $data);
 
-            $this->load->view('student/studentCreate', $data);
+            $this->load->view('student/studentCreate', ['data'=>$data,"year"=>$year]);
 
             $this->load->view('layout/footer', $data);
 
@@ -3349,7 +3349,7 @@ class Student extends Admin_Controller
         $data['classlist']       = $class;
 
 
-
+       
         $this->load->view('layout/header', $data);
 
         $this->load->view('student/studentSearch', $data);
@@ -5322,6 +5322,25 @@ class Student extends Admin_Controller
             redirect('student/addroute');
 
     }
+
+
+    //get fee on the base of selected class year and level
+    public function getfee(){
+
+        $class=$this->input->get("class");
+        $level=$this->input->get("level");
+        $year=$this->input->get("year");
+         $data=$this->Fee_model->getFee($year,$class,$level);
+
+         if(!empty($data)){
+            echo json_encode(['data'=>$data]);
+         }
+        
+
+    }
+
+
+
 
 }
 

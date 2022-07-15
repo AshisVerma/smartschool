@@ -17,7 +17,8 @@ class Vehicle extends Admin_Controller {
         $this->session->set_userdata('top_menu', 'Transport');
         $this->session->set_userdata('sub_menu', 'vehicle/index');
         $data['title'] = 'Add Vehicle';
-        $listVehicle = $this->vehicle_model->get();
+        $listVehicle = $this->vehicle_model->getAll();
+       
         $data['listVehicle'] = $listVehicle;
         $this->form_validation->set_rules('vehicle_no', $this->lang->line('vehicle_no'), 'trim|required|xss_clean');
 

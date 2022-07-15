@@ -1,3 +1,17 @@
+<style type="text/css">
+    #table tr:nth-child(1){
+        font-size: 25px !important;
+        font-weight: bold !important;
+        background-color:#cfead9 !important; 
+    }
+    table td{
+        border: 0.5px solid #ccc !important;
+        padding: 15px 30px !important;
+    }
+    table tr td:nth-child(even){
+        text-align: center !important;
+    }
+</style>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -45,6 +59,22 @@
                                         <?php if ($sch_setting->roll_no) { ?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('study_year'); ?></label>
+                                                   <select class="form-control" name="academic_year" id="academic_year">
+                                                       <option>Select Academic Year</option>
+                                                       <?php foreach($year as $year_list){?>
+
+                                                        <option><?php echo $year_list['year']?></option>
+
+                                                       <?php }?>
+                                                   </select>
+                                                    <span class="text-danger"><?php echo form_error('roll_no'); ?></span>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('roll_no'); ?></label>
                                                     <input id="roll_no" name="roll_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('roll_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('roll_no'); ?></span>
@@ -72,6 +102,16 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('select_level'); ?></label><small class="req"> *</small>
+                                                <select  id="select_level" name="section_id" class="form-control" >
+                                                    <option value=""   ><?php echo $this->lang->line('select_level'); ?></option>
+                                                </select>
+                                                <span class="text-danger"><?php echo form_error('section_id'); ?></span>
+                                            </div>
+                                        </div>
+                                         <div class="col-md-3">
 
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
@@ -543,9 +583,9 @@
                                                     </h4>
 
                                                     <div class="row around10">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('route_list'); ?></label>
+                                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('transportationarea'); ?></label>
                                                                 <select class="form-control" id="vehroute_id" name="vehroute_id">
 
                                                                     <option value=""><?php echo $this->lang->line('select'); ?></option>
@@ -575,6 +615,29 @@
                                                             </div>
                                                         </div>
 
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label><?php echo $this->lang->line('transportationline')?></label>
+                                                                <select class="form-control" name="transportation_line">
+                                                                    <option>Select Transportation Line</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                         <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label><?php echo $this->lang->line('start_date')?></label>
+                                                               <input type="date" name="transportation_start_date" class="form-control date">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label><?php echo $this->lang->line('end_date')?></label>
+                                                               <input type="date" name="transportation_start_date" class="form-control date">
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -588,9 +651,9 @@
                                                         </h4>
 
                                                         <div class="row around10">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('hostel'); ?></label>
+                                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('hostel_name'); ?></label>
 
                                                                     <select class="form-control" id="hostel_id" name="hostel_id">
 
@@ -609,15 +672,30 @@
                                                                     <span class="text-danger"><?php echo form_error('hostel_id'); ?></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('room_no'); ?></label>
+                                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('hostel_room'); ?></label>
                                                                     <select  id="hostel_room_id" name="hostel_room_id" class="form-control" >
                                                                         <option value=""   ><?php echo $this->lang->line('select'); ?></option>
                                                                     </select>
                                                                     <span class="text-danger"><?php echo form_error('hostel_room_id'); ?></span>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label><?php echo $this->lang->line("registration_date") ?></label>
+                                                                    <input type="date" name="hostel_registration_date" class="form-control date">
+                                                                </div>
+                                                            </div>
+
+                                                             <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label><?php echo $this->lang->line("vacating_date") ?></label>
+                                                                    <input type="date" name="hostel_registration_date" class="form-control date">
+                                                                </div>
+                                                            </div>
+
 
 
                                                         </div>
@@ -778,6 +856,35 @@
                                 <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('save'); ?></button>
                             </div>
                     </form>
+                    <table class="table" id="table">
+                        <tr>
+                            <td colspan="2">
+                                <h6><center>Total Fee</center></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registration Fee</td>
+                            <td id="registration_sum_td" class="price">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Academic Fee</td>
+                            <td id="academic_sum_td" class="price">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Transporation Fee</td>
+                            <td class="price">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Hostel Fee</td>
+                            <td class="price">0.00</td>
+                        </tr>
+
+                          <tr>
+                            <td>Sub Total</td>
+                            <td id="sub-total-price">0.00</td>
+                        </tr>
+                       
+                    </table>
                 </div>
             </div>
         </div>
@@ -869,8 +976,13 @@
 
         $(document).on('change', '#class_id', function (e) {
             $('#section_id').html("");
+            var select_class_index=$(this).find("option:selected").index();
+           var option=$(this).find("option");
+           var classname=option[select_class_index].innerHTML;
+             
+           
             var class_id = $(this).val();
-            getSectionByClass(class_id, 0);
+            getSectionByClass(class_id, 0,classname);
         });
 
 
@@ -891,7 +1003,9 @@
 
         });
 
-        function getSectionByClass(class_id, section_id) {
+        function getSectionByClass(class_id, section_id,classname) {
+
+            //academic year
 
             if (class_id != "") {
                 $('#section_id').html("");
@@ -909,13 +1023,25 @@
                 $.ajax({
                     type: "GET",
                     url: base_url + "sections/getByClass",
-                    data: {'class_id': class_id},
+                    data: {'class_id': class_id,"classname":classname},
                     dataType: "json",
                     beforeSend: function () {
                         $('#section_id').addClass('dropdownloading');
                     },
                     success: function (data) {
-                        $.each(data, function (i, obj)
+                       
+                        //add level
+                         $.each(data.level, function (i, obj)
+                        {
+                           var option=document.createElement("OPTION");
+                           option.value=obj.level;
+                           option.innerHTML=obj.level;
+                           $('#select_level').append(option);
+                        });
+
+                        //end add level
+                       
+                        $.each(data.data, function (i, obj)
                         {
                             var sel = "";
                             if (section_id == obj.section_id) {
@@ -931,6 +1057,54 @@
                 });
             }
         }
+
+        //fee get after  selected
+        $("#select_level").change(function(){
+
+            var select_class_index=$("#class_id").find("option:selected").index();
+           var option=$("#class_id").find("option");
+           var classname=option[select_class_index].innerHTML;
+            $.ajax({
+                type:"GET",
+                url:"<?php echo base_url()?>student/getfee",
+                data:{
+                    class:classname,
+                    level:$("#select_level").val(),
+                    year:$("#academic_year").val(),
+                },
+                success:function(response){
+
+                    response=JSON.parse(response);
+                  
+                    $.each(response.data,function(index,data){
+                        console.log(data);
+                        if(data.fee_type=="Registration Fee"){
+                            var amount=Number(data.amount);
+                        $("#registration_sum_td").html("<i class='fa fa-inr'></i> "+(amount).toFixed(2));
+                        }
+
+                        if(data.fee_type=="Academic Fee"){
+                            var amount=Number(data.amount);
+                        $("#academic_sum_td").html("<i class='fa fa-inr'></i> "+(amount).toFixed(2));
+                        }
+                        
+
+                    });
+
+                    //total price calculate
+
+                     var total_price=0;
+                        var price=$(".price");
+                        $(price).each(function(){
+                            total_price+=Number ($(this).text());
+                        });
+
+                        $("#sub-total-price").html("<i class='fa fa-inr'></i> "+(total_price).toFixed(2))
+                }
+
+            });
+        });
+        //end fee get after selected
 
 
         function getHostel(hostel_id, hostel_room_id) {

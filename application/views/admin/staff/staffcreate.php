@@ -72,7 +72,7 @@
 
 
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
 
                                                 <div class="form-group">
 
@@ -94,7 +94,7 @@
 
                                         ?>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
 
 
 
@@ -128,7 +128,7 @@
 
                                         <?php if ($sch_setting->staff_designation) { ?>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
 
                                                 <div class="form-group">
 
@@ -160,7 +160,7 @@
 
                                         <?php } if ($sch_setting->staff_department) { ?>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
 
                                                 <div class="form-group">
 

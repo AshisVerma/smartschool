@@ -191,11 +191,11 @@
             <td><?php echo $classroom_list['capacity'];?></td>
             <td>
               <?php if($classroom_list['status']==1){?>
-                <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="btn btn-success">Active</a>
+                <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="badge badge-success p-2 p-font" style="padding: 6px 10px;background: green;color: white;font-size: 12px;border-radius: 3rem;" data-toggle="tooltip" title="Status Active">Active</a>
 
               <?php } 
               else {?>
-                 <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="btn btn-danger">Deactive</a>
+                 <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="badge badge-success p-2 p-font" style="padding: 6px 10px;background: red;color: white;font-size: 12px;border-radius: 3rem;" data-toggle="tooltip" title="Status Deactive">Deactive</a>
 
               <?php }?>
 

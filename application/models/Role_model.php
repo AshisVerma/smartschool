@@ -202,4 +202,12 @@ class Role_model extends MY_Model {
         return $query->num_rows();
     }
 
+     function getAllRole() {
+
+        $query = $this->db->get("roles")->result_array();
+        return $query;
+
+        
+    }
+
 }

@@ -2033,8 +2033,7 @@ class Student_model extends MY_Model
     public function add($data, $data_setting = array())
 
     {
-
-
+   
 
         if (isset($data['id'])) {
 

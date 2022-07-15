@@ -9,11 +9,14 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
     <section class="content">
         <div class="row">
             <div class="col-md-12">
+                <a href="<?php echo base_url()?>admin/users/list" style="float:right;margin-bottom: 15px;" class="btn btn-primary"><i class="fa fa-list"></i> User List</a>
+            </div>
+            <div class="col-md-12">
                 <div class="box box-primary" >
                     <div class="box-header ">
                         <h3 class="box-title"><!-- <?php echo $this->lang->line('role'); ?> --> Add New User</h3>
                     </div>
-                    <form id="form1" action="<?php echo site_url('admin/roles') ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                    <form id="form1" action="<?php echo site_url('admin/users/create') ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                         <div class="box-body">
                             <?php if ($this->session->flashdata('msg')) { ?>
                                 <?php echo $this->session->flashdata('msg') ?>
@@ -35,17 +38,21 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('father_name'); ?></label><small class="req"> *</small>
-                                <input autofocus="" id="name" name="name" placeholder="Father Name" type="text" class="form-control"  value="<?php echo set_value('father_name'); ?>" />
-                                <span class="text-danger"><?php echo form_error('father_name'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('dob'); ?></label><small class="req"> *</small>
+                                <input autofocus=""  name="dob"  type="text" class="form-control date"  value="<?php echo set_value('dob'); ?>" />
+                                <span class="text-danger"><?php echo form_error('dob'); ?></span>
                             </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_name'); ?></label><small class="req"> *</small>
-                                <input autofocus="" id="name" name="name" placeholder="Mother Name" type="text" class="form-control"  value="<?php echo set_value('mother_name'); ?>" />
-                                <span class="text-danger"><?php echo form_error('mother_name'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('gender'); ?></label><small class="req"> *</small>
+                               <select class="form-control" name="gender">
+                                   <option>Select Gender</option>
+                                   <option>Male</option>
+                                   <option>Female</option>
+                               </select>
+                                <span class="text-danger"><?php echo form_error('gender'); ?></span>
                             </div>
                                 </div>
 
@@ -54,11 +61,88 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('date_of_birth'); ?></label><small class="req"> *</small>
-                                <input autofocus="" id="name" name="name" placeholder="" type="date" class="form-control"  value="<?php echo set_value('mother_name'); ?>" />
-                                <span class="text-danger"><?php echo form_error('name'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label><small class="req"> *</small>
+                                <input autofocus=""  name="religion" placeholder="Religion" type="text" class="form-control"  value="<?php echo set_value('religion'); ?>" />
+                                <span class="text-danger"><?php echo form_error('religion'); ?></span>
                             </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line('email'); ?></label>
+                                        <input type="email" name="email" class="form-control" placeholder="<?php echo $this->lang->line('email'); ?>" value="<?php echo set_value('email'); ?>">
+                                         <span class="text-danger"><?php echo form_error('email'); ?></span>
+                                    </div>
+                                </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line('phone'); ?></label>
+                                        <input type="text" name="phone" class="form-control" placeholder="<?php echo $this->lang->line('phone'); ?>" value="<?php echo set_value('phone'); ?>">
+                                         <span class="text-danger"><?php echo form_error('phone'); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line('join_date'); ?></label>
+                                        <input type="text" name="join_date" class="form-control date" value="<?php echo set_value('join_date'); ?>">
+                                         <span class="text-danger"><?php echo form_error('join_date'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                    <label><?php echo $this->lang->line('photo'); ?></label>
+                                    <input type="file" name="image" class="filestyle form-control">
+                                     <span class="text-danger"><?php echo form_error('image'); ?></span>
+                                </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line("role") ?></label>
+                                        <select class="form-control" name="role">
+                                            <option>Select Role</option>
+                                            <?php foreach($usergroup as $role){?>
+
+                                                <option value="<?php echo $role['id']?>" ><?php echo $role['name'] ?></option>
+
+                                        <?php }?>
+                                        </select>
+                                    </div>
+                                     <span class="text-danger"><?php echo form_error('role'); ?></span>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line("username")?></label>
+                                        <input type="text" name="username" class="form-control" placeholder="<?php echo $this->lang->line("username")?>" value="<?php echo set_value('usern'); ?>">
+                                         <span class="text-danger"><?php echo form_error('username'); ?></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line("password")?></label>
+                                        <input type="text" name="password" placeholder="<?php echo $this->lang->line("password")?>" class="form-control" value="<?php echo set_value('password'); ?>">
+                                         <span class="text-danger"><?php echo form_error('password'); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                               <div class="col-md-12">
+                                    <div class="form-group">
+                                    <label><?php echo $this->lang->line("address")?></label>
+                                    <textarea class="form-control" name="address">
+                                        <?php echo set_value('address'); ?>"
+                                    </textarea>
+                                </div>
+                                 <span class="text-danger"><?php echo form_error('address'); ?></span>
+                               </div>
                             </div>
 
 

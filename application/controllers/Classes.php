@@ -10,6 +10,7 @@ class Classes extends Admin_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model(["Classroom_model","Class_model"]);
     }
 
     public function index()
@@ -17,6 +18,8 @@ class Classes extends Admin_Controller
         if (!$this->rbac->hasPrivilege('class', 'can_view')) {
             access_denied();
         }
+
+
         $this->session->set_userdata('top_menu', 'Academics');
         $this->session->set_userdata('sub_menu', 'classes/index');
         $data['title']      = 'Add Class';
@@ -33,21 +36,38 @@ class Classes extends Admin_Controller
         if ($this->form_validation->run() == false) {
 
         } else {
-            $class       = $this->input->post('class');
+           
             $class_array = array(
                 'class' => $this->input->post('class'),
+                 "sections"=>$this->input->post('sections'),
+                "classroom"=>$this->input->post("classroom"),
+
             );
-            $sections = $this->input->post('sections');
+            print_r($class_array);
+            die;
+
+          
             $this->classsection_model->add($class_array, $sections);
             $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>');
             redirect('classes');
         }
+           
+           $classroom=$this->Classroom_model->get();
+
+           
+           
         $vehicle_result       = $this->section_model->get();
+
         $data['vehiclelist']  = $vehicle_result;
         $vehroute_result      = $this->classsection_model->getByID();
+
         $data['vehroutelist'] = $vehroute_result;
+        $classData=json_decode($this->Class_model->data(),true);
+
+         
+
         $this->load->view('layout/header', $data);
-        $this->load->view('class/classList', $data);
+        $this->load->view('class/classList', ['data'=>$data,"classroom"=>$classroom,"classdata"=>$classData]);
         $this->load->view('layout/footer', $data);
     }
 

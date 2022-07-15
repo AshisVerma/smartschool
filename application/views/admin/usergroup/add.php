@@ -209,9 +209,9 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                               <td><?php echo $group['name'] ?></td>
                                               <td>
                                                   <?php if($group['status']==1){?>
-                                                   <a href="<?php echo base_url()?>admin/usergroup/status/<?php echo $group['id']?>" class="btn btn-success">Active</a>
+                                                   <a href="<?php echo base_url()?>admin/usergroup/status/<?php echo $group['id']?>" class="badge badge-success p-2 p-font" style="padding: 6px 10px;background: green;color: white;font-size: 12px;border-radius: 3rem;" data-toggle="tooltip" title="Status Active">Active</a>
                                                   <?php } else {?>
-                                                    <a href="<?php echo base_url()?>admin/usergroup/status/<?php echo $group['id']?>" class="btn btn-danger">Deactive</a>
+                                                    <a href="<?php echo base_url()?>admin/usergroup/status/<?php echo $group['id']?>" class="badge badge-success p-2 p-font" style="padding: 6px 10px;background:red;color: white;font-size: 12px;border-radius: 3rem;" data-toggle="tooltip" title="Status Active">Deactive</a>
                                                   <?php }?>
                                               </td>
                                               <td>

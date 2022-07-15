@@ -230,6 +230,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         var section_id = '<?php echo set_value('section_id') ?>';
         getSectionByClass(class_id, section_id);
         $(document).on('change', '#class_id', function (e) {
+
             $('#section_id').html("");
             var class_id = $(this).val();
             var base_url = '<?php echo base_url() ?>';
@@ -240,7 +241,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 data: {'class_id': class_id},
                 dataType: "json",
                 success: function (data) {
-                    $.each(data, function (i, obj)
+                    
+                    $.each(data.data, function (i, obj)
                     {
                         div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
                     });

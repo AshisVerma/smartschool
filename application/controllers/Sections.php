@@ -10,6 +10,7 @@ class Sections extends Admin_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model("Studylevel_model");
     }
 
     public function index()
@@ -74,8 +75,11 @@ class Sections extends Admin_Controller
     public function getByClass()
     {
         $class_id = $this->input->get('class_id');
+        $classname=$this->input->get("classname");
+        $level=$this->Studylevel_model->get_level_by_class($classname);
         $data     = $this->section_model->getClassBySection($class_id);
-        echo json_encode($data);
+        
+        echo json_encode(['data'=>$data,"level"=>$level]);
     }
 
     public function getClassTeacherSection()

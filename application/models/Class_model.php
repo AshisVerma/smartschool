@@ -197,4 +197,25 @@ class Class_model extends MY_Model {
         return $this->db->select('sections.id,sections.section')->from('class_sections')->join('sections', 'class_sections.section_id=sections.id')->where('class_id', $id)->get()->result_array();
     }
 
+
+    public function all(){
+      
+        $result=$this->db->get("classes")->result_array();
+        return $result;
+    }
+
+
+    function data(){
+        $this->db->select("c.id,c.class,c.room_no,cr.capacity,cr.room_no,s.section");
+        $this->db->from("classes c");
+        $this->db->join("classroom cr","cr.room_no=c.room_no","left");
+        $this->db->join("class_sections cs","cs.class_id=c.id","left");
+        $this->db->join("sections s","s.id=cs.section_id","left");
+        $data=$this->db->get();
+       return json_encode($data->result_array());
+       
+
+
+    }
+
 }

@@ -10,7 +10,7 @@ class Users extends Admin_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("classteacher_model");
+        $this->load->model(["classteacher_model","UserGroup_model","Users_model"]);
         $this->sch_setting_detail = $this->setting_model->getSetting();
     }
 
@@ -291,12 +291,157 @@ class Users extends Admin_Controller
 
 
     public function add(){
-             
+             $usergroup=$this->UserGroup_model->all();
+
             $this->load->view('layout/header');
-            $this->load->view('admin/users/add');
+            $this->load->view('admin/users/add',['usergroup'=>$usergroup]);
             $this->load->view('layout/footer');
 
     }
+
+    public function create(){
+
+        $this->form_validation->set_rules("name","name","trim|xss_clean|required",array("name.required"=>"Name can`t be empty"));
+        $this->form_validation->set_rules("email","email","trim|xss_clean|required",array("email.required"=>"Email can`t be empty"));
+        $this->form_validation->set_rules("password","password","trim|xss_clean|required",array("password.required"=>"Password can`t be empty"));
+
+        $this->form_validation->set_rules("dob","dob","trim|xss_clean|required",array("dob.required"=>"Date of Birth can`t be empty"));
+
+        $this->form_validation->set_rules("religion","religion","trim|xss_clean|required",array("religion.required"=>"Religion can`t be empty"));
+        $this->form_validation->set_rules("phone","phone","trim|xss_clean|required",array("phone.required"=>"Phone No can`t be empty"));
+
+        $this->form_validation->set_rules("join_date","join_date","trim|xss_clean|required",array("join_date.required"=>"Name can`t be empty"));
+
+        $this->form_validation->set_rules("address","name","trim|xss_clean|required",array("address.required"=>"Address can`t be empty"));
+
+         $this->form_validation->set_rules("username","username","trim|xss_clean|required",array("username.required"=>"Username can`t be empty"));
+
+
+       
+
+       if($this->form_validation->run()!=false){
+         $image=rand(9,999).time().".png";
+        $file=$_FILES['image'];
+        $data=array(
+            "name"=>$this->input->post("name"),
+            "dob"=>date("Y-m-d",strtotime($this->input->post("dob"))),
+            "religion"=>$this->input->post("religion"),
+            "email"=>$this->input->post("email"),
+            "password"=>$this->input->post("password"),
+            "join_date"=>date("Y-m-d",strtotime($this->input->post("join_date"))),
+            "usergroup_id"=>$this->input->post("role"),
+            "username"=>$this->input->post("username"),
+            "gender"=>$this->input->post("gender"),
+            "phone"=>$this->input->post("phone"),
+            "image"=>$image,
+
+            "address"=>$this->input->post("address"),
+        );
+ 
+        $check=$this->Users_model->add($data);
+      
+        if($check){
+            move_uploaded_file($file['tmp_name'],"./upload/user/images/".$image);
+            $this->session->set_flashdata("msg","<div class='alert alert-success'>User created successfully<i class='fa fa-close close'></i></div>");
+            redirect(base_url()."admin/users/add");
+        }
+
+       }
+       else{
+        $usergroup=$this->UserGroup_model->all();
+          $this->load->view('layout/header');
+            $this->load->view('admin/users/add',['usergroup'=>$usergroup]);
+            $this->load->view('layout/footer');
+
+       }
+
+       
+    
+
+
+    }
+
+     public function list(){
+        $user_list=$this->Users_model->get();
+         $this->load->view('layout/header');
+            $this->load->view('admin/users/list',['userlist'=>$user_list]);
+            $this->load->view('layout/footer');
+
+     }
+
+
+     public function status($id){
+        $check=$this->Users_model->status($id);
+       if($check){
+         $this->session->set_flashdata("msg","<div class='alert alert-success'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Users Status Updated successfully</div>");
+            redirect("admin/users/list");
+       }
+       else{
+        $this->session->set_flashdata("msg","<div class='alert alert-warning'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Whoops! something is wrong try again</div>");
+            redirect("admin/users/list");
+       }
+     }
+
+
+     public function edit($id){
+       $data=$this->Users_model->edit($id);
+       $usergroup=$this->UserGroup_model->all();
+          $this->load->view('layout/header');
+            $this->load->view('admin/users/edit',['usergroup'=>$usergroup,"data"=>$data]);
+            $this->load->view('layout/footer');
+
+     }
+
+
+     public function update(){
+      
+        if(!empty($_FILES['image']['name'])){
+          
+        }
+        else{
+
+
+            $data=array(
+            "name"=>$this->input->post("name"),
+            "dob"=>date("Y-m-d",strtotime($this->input->post("dob"))),
+            "religion"=>$this->input->post("religion"),
+            "email"=>$this->input->post("email"),
+            "password"=>$this->input->post("password"),
+            "join_date"=>date("Y-m-d",strtotime($this->input->post("join_date"))),
+            "usergroup_id"=>$this->input->post("role"),
+            "username"=>$this->input->post("username"),
+            "gender"=>$this->input->post("gender"),
+            "phone"=>$this->input->post("phone"),
+            "address"=>$this->input->post("address"),
+            "id"=>$this->input->post("id"),
+        );
+
+        $check=$this->Users_model->update($data);
+
+        if($check['status']){
+         $this->session->set_flashdata("msg","<div class='alert alert-success'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Users  Updated successfully</div>");
+            redirect("admin/users/list");
+       }
+       else{
+        $this->session->set_flashdata("msg","<div class='alert alert-warning'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Whoops! something is wrong try again</div>");
+            redirect("admin/users/list");
+       }
+
+        }
+     }
+
+
+     public function delete($id){
+        $check=$this->Users_model->delete($id);
+         if($check){
+         $this->session->set_flashdata("msg","<div class='alert alert-success'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Users Deleted successfully</div>");
+            redirect("admin/users/list");
+       }
+       else{
+        $this->session->set_flashdata("msg","<div class='alert alert-warning'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Whoops! something is wrong try again</div>");
+            redirect("admin/users/list");
+       }
+     }
 
 
 }

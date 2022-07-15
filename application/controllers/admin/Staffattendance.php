@@ -88,6 +88,8 @@ class Staffattendance extends Admin_Controller {
 
         } else {
 
+           
+
 
 
             $user_type = $this->input->post('user_id');

@@ -564,7 +564,7 @@ $(document).ready(function(){
 $(document).on('submit','.class_search_form',function(e){
 
    e.preventDefault(); // avoid to execute the actual submit of the form.
-
+   
     var $this = $(this).find("button[type=submit]:focus");
 
     var form = $(this);
@@ -572,8 +572,11 @@ $(document).on('submit','.class_search_form',function(e){
     var url = form.attr('action');
 
     var form_data = form.serializeArray();
+    
+
 
     form_data.push({name: 'search_type', value: $this.attr('value')});
+
 
     $.ajax({
 
@@ -591,18 +594,19 @@ $(document).on('submit','.class_search_form',function(e){
 
                 $this.button('loading');
 
-
+       
 
                 resetFields($this.attr('value'));
 
                },
 
               success: function(response) { // your success handler
-
-
+              
+                  // console.log(response);
+                 
 
                 if(!response.status){
-
+                  
                     $.each(response.error, function(key, value) {
 
                     $('#error_' + key).html(value);
@@ -779,7 +783,7 @@ $(document).on('submit','.class_search_form',function(e){
 
      },"drawCallback": function(settings) {
 
-
+           console.log(settings.join.student_detail_view);
 
     $('.detail_view_tab').html("").html(settings.json.student_detail_view);
 

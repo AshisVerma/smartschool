@@ -31,12 +31,14 @@ class User extends Student_Controller
 
     public function choose()
     {
+
         if ($this->session->has_userdata('current_class')) {
 
             redirect('user/user/dashboard');
         }
         $data['sch_setting']      = $this->sch_setting_detail;
         $role                     = $this->customlib->getUserRole();
+      
         $data['role']             = $role;
         $student_current_class    = array();
         $default_login_student_id = "";
@@ -84,6 +86,8 @@ class User extends Student_Controller
 
     public function dashboard()
     {
+
+       
 
         $this->session->set_userdata('top_menu', 'Dashboard');
         $student_id            = $this->customlib->getStudentSessionUserID();

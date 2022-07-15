@@ -130,4 +130,10 @@ class Expensehead_model extends MY_Model {
         return $this->datatables->generate('json');
     }
 
+
+    public function getAll(){
+    $data=$this->db->get("expense_head")->result_array();
+    return $data;
+    }
+
 }

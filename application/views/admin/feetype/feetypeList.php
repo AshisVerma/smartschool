@@ -19,7 +19,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title"><?php echo $this->lang->line('add_fees_type'); ?></h3>
                         </div><!-- /.box-header -->
-                        <form id="form1" action="<?php echo base_url() ?>admin/feetype"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                        <form id="form1" action="<?php echo base_url() ?>admin/feetype/add_data"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                             <div class="box-body">
                                 <?php if ($this->session->flashdata('msg')) { ?>
                                     <?php echo $this->session->flashdata('msg') ?>

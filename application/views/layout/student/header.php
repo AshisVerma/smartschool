@@ -278,16 +278,16 @@ if($this->studentmodule_lib->hasActive('multi_class')){
                             <?php
                         }
                         ?>
-						
-						
-						<?php
+                        
+                        
+                        <?php
                        if($this->module_lib->hasModule('online_course') && $this->studentmodule_lib->hasActive('online_course') && $this->auth->addonchk('ssoclc',false)){                    
                        ?>
-							<li class="<?php echo set_topmenu('user/studentcourse'); ?>"><a href="<?php echo base_url(); ?>user/studentcourse"><i class="fa fa-file-video-o ftlayer"></i> <span><?php echo $this->lang->line('online_course'); ?></span></a></li>
-							
-						<?php } ?>  
-						
-						
+                            <li class="<?php echo set_topmenu('user/studentcourse'); ?>"><a href="<?php echo base_url(); ?>user/studentcourse"><i class="fa fa-file-video-o ftlayer"></i> <span><?php echo $this->lang->line('online_course'); ?></span></a></li>
+                            
+                        <?php } ?>  
+                        
+                        
                                <?php
                        if($this->module_lib->hasModule('zoom_live_classes') && $this->studentmodule_lib->hasActive('live_classes') && $this->auth->addonchk('sszlc',false)){                     
                             ?>
@@ -332,7 +332,7 @@ if($this->studentmodule_lib->hasActive('multi_class')){
 
                              
                         <?php }
-						 if ($this->studentmodule_lib->hasActive('apply_leave')) {
+                         if ($this->studentmodule_lib->hasActive('apply_leave')) {
                             ?>
                        
                               <li class="<?php echo set_Topmenu('apply_leave'); ?>"><a href="<?php echo base_url(); ?>user/apply_leave"><i class="fa fa-check-square ftlayer"></i> <span><?php echo $this->lang->line('apply_leave'); ?></span></a></li>

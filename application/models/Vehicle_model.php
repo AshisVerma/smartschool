@@ -13,8 +13,11 @@ class Vehicle_model extends MY_Model {
     public function get($id = null) {
         $this->db->select()->from('vehicles');
         if ($id != null) {
+            
             $this->db->where('vehicles.id', $id);
         } else {
+
+
             $this->db->order_by('vehicles.id');
         }
         $query = $this->db->get();
@@ -100,6 +103,14 @@ class Vehicle_model extends MY_Model {
         $this->db->where_in('vehicles.id', $array);
         $query = $this->db->get();
         return $query->result();
+    }
+
+
+    public function getAll(){
+       $query=$this->db->get("vehicles");
+       
+       return $query->result_array();
+
     }
 
 }

@@ -18,6 +18,8 @@ class StudentModule_lib {
     public function loadModule() {
         if ($this->CI->session->has_userdata('student')) {
             $this->student = $this->CI->session->userdata('student');
+
+          
             $this->allModules = $this->CI->Module_model->get_userpermission($this->student['role']);
             $role_name = $this->student['role'];
             if (!empty($this->allModules)) {

@@ -1,4 +1,9 @@
-<?php $currency_symbol = $this->customlib->getSchoolCurrencyFormat(); ?>
+<?php $currency_symbol = $this->customlib->getSchoolCurrencyFormat(); 
+
+
+
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -40,7 +45,7 @@
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('sections'); ?></label><small class="req"> *</small>
 
 
-                                    <?php
+                                     <?php
                                     foreach ($vehiclelist as $vehicle) {
                                         ?>
                                         <div class="checkbox">
@@ -50,7 +55,20 @@
                                         </div>
                                         <?php
                                     }
-                                    ?>
+                                    ?> 
+                                    <div class="form-group">
+                                        <label>Class Room No</label>
+                                        <select class="form-control" name="classroom">
+                                            <option>
+                                                Select Class Room
+                                            </option>
+                                             <?php foreach($classroom as $classroom_list){?>
+                                     <option><?php echo $classroom_list['room_no']?></option>
+                                    <?php }?>
+                                        </select>
+                                    </div>
+ 
+                                   
 
                                     <span class="text-danger"><?php echo form_error('sections[]'); ?></span>
                                 </div>
@@ -83,7 +101,7 @@
                     <div class="box-body">
                         <div class="table-responsive mailbox-messages">
                             <div class="download_label"><?php echo $this->lang->line('class_list'); ?></div>
-                            <table class="table table-striped table-bordered table-hover example">
+                            <table class="table table-striped table-bordered table-hover example text-center">
                                 <thead>
                                     <tr>
 
@@ -91,48 +109,40 @@
                                         </th>
                                         <th><?php echo $this->lang->line('sections'); ?>
                                         </th>
+                                        <th>Room No</th>
 
                                         <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($vehroutelist as $vehroute) {
+                                    foreach ($classdata as $classdata_list) {
                                         ?>
                                         <tr>
                                             <td class="mailbox-name">
-                                                <?php echo $vehroute->class; ?>
+                                                <?php echo $classdata_list['class']; ?>
 
                                             </td>
 
 
                                             <td>
-                                                <?php
-                                                $vehicles = $vehroute->vehicles;
-                                                if (!empty($vehicles)) {
 
-
-                                                    foreach ($vehicles as $key => $value) {
-
-
-                                                        echo "<div>" . $value->section . "</div>";
-                                                    }
-                                                }
-                                                ?>
+                                               <?php echo $classdata_list['section']; ?> 
 
                                             </td>
+                                            <td><?php echo $classdata_list['room_no']; ?></td>
                                             <td class="mailbox-date pull-right">
                                                 <?php
                                                 if ($this->rbac->hasPrivilege('class', 'can_edit')) {
                                                     ?>  
-                                                    <a data-placement="left" href="<?php echo base_url(); ?>classes/edit/<?php echo $vehroute->id; ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
+                                                    <a data-placement="left" href="<?php echo base_url(); ?>classes/edit/<?php echo $classdata_list['id']; ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <?php
                                                 }
                                                 if ($this->rbac->hasPrivilege('class', 'can_delete')) {
                                                     ?>  
-            <a data-placement="left" href="<?php echo base_url(); ?>classes/delete/<?php echo $vehroute->id; ?>"class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('deleting_class'); ?>');">
+            <a data-placement="left" href="<?php echo base_url(); ?>classes/delete/<?php   ?>"class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('deleting_class'); ?>');">
                                                         <i class="fa fa-remove"></i>
                                                     </a>
                                                 <?php } ?>

@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Usergroup extends Admin_Controller {
+class Studyyear extends Admin_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -20,7 +20,7 @@ class Usergroup extends Admin_Controller {
         }
              
        
-
+    
 
         $json_array = array();
         $this->session->set_userdata('top_menu', 'Studyyear');
@@ -33,7 +33,7 @@ class Usergroup extends Admin_Controller {
 
 
         $this->load->view('layout/header', $data);
-        $this->load->view('admin/usergroup/add', ['data'=>$data]);
+        $this->load->view('admin/studyyear/studyyear_list', ['data'=>$data]);
         $this->load->view('layout/footer', $data);
 
         // $this->form_validation->set_rules(
@@ -156,5 +156,7 @@ class Usergroup extends Admin_Controller {
         }
 
     }
+
+
 
 }

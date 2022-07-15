@@ -106,4 +106,10 @@ class Incomehead_model extends My_Model {
         }
     }
 
+
+    function getAll(){
+        $data=$this->db->get("income_head")->result_array();
+        return $data;
+    }
+
 }

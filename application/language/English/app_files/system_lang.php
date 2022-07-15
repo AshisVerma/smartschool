@@ -1722,3 +1722,75 @@ $lang['thanks_for_contacting_us'] = "Thanks for contacting us";
 $lang['thank_you_for_your_complain'] = "Thank you for your complain";
 $lang['deleting_class'] = "Deleting this class will also delete all students under this Class so be careful as this action is irreversible";
 $lang['this_field_is_reqiured_only_for_indian_sms_gateway'] = "This field is reqiured only for indian sms gateway";
+
+
+//MANAGE LIBRARY
+$lang['book_category']="Book Category";
+$lang['subject']="Subject";
+$lang['all_issue_book']="All Issue Book";
+$lang['add_book_catgory']="Add Book Category";
+$lang['book_list']="Book Category List";
+$lang['sr_no']="Sr.No";
+$lang['add_book']="Add book";
+$lang['status']="Status";
+$lang['book_report']="Book Report";
+
+
+
+//book isssue
+$lang['issue_book']="Book Issue";
+
+//Accounting
+$lang['accounting']="Accounting";
+$lang['discount_report']="Discount Report";
+$lang['general_financial']="General Financial Reports";
+$lang['transportation_report']="Transportation Report";
+$lang['collection_report']="Collection Reports";
+
+
+
+
+//driver 
+$lang['driver_name']="Driver Name";
+$lang['vehicle_no']="Vehicle No";
+$lang['permanent_address']="Permanent Address";
+$lang['present_address']="Present Address";
+$lang['dob']="Date Of Birth";
+$lang['phone']="Phone No";
+$lang['licence_no']="License Number";
+$lang['add_driver']="Add Driver";
+//end driver
+
+
+//student admission
+$lang['study_year']="Academic Year";
+$lang['transportationarea']="Transportation Area";
+$lang['transportationline']="Transportation Line";
+$lang['start_date']="Start Date";
+$lang['end_date']="End Date";
+$lang['hostel']="Hostel Name";
+$lang['hostel_room']="Hostel Room";
+$lang['registration_date']="Registration Date";
+$lang['vacating_date']="Vacating Date";
+$lang['select_level']="Select Level";
+
+
+//user page 
+$lang['username']="Name";
+$lang['dob']="Date of Birth";
+$lang['join_date']="Joining Date";
+$lang['role']="Role";
+$lang['username']="Username";
+$lang['password']="Password";
+
+
+//end user page
+
+
+
+
+//vechile route setup
+$lang['transportationarea']="Transportation";
+$lang['transportationline']="Transportationline";
+
+//end vechile route setup

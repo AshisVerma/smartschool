@@ -9,9 +9,11 @@
         <meta http-equiv="Cache-control" content="no-cache">
         <meta name="theme-color" content="#424242" />
        <link href="<?php echo base_url(); ?>uploads/school_content/admin_small_logo/<?php $this->setting_model->getAdminsmalllogo();?>" rel="shortcut icon" type="image/x-icon">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/dist/css/jquery.mCustomScrollbar.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <?php
           $this->load->view('layout/theme');
          ?>
@@ -71,6 +73,34 @@
         span.flag-icon.flag-icon-us{text-orientation: mixed;}
 
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Hind+Madurai:wght@300;400&family=Poppins:ital,wght@0,300;1,200&family=Righteous&family=Sarabun:wght@200&family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet">
+
+  <style type="text/css">
+      .r-font{
+        font-family: 'Righteous', cursive !important;
+      }
+      .p-font{
+        font-family: 'Poppins', sans-serif !important;
+      }
+      label{ font-family: 'Poppins', sans-serif !important;
+      font-weight: 900 !important
+      ;
+
+      }
+      table td,th{
+        font-family: 'Poppins', sans-serif !important;
+      font-weight: 600 !important;
+
+      }
+      li,a{ font-family: 'Poppins', sans-serif !important;
+      font-weight: 500 !important;
+
+
+      }
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>public/mdtimepicker.css">
+  <script type="text/javascript" src="<?php echo base_url()?>public/mdtimepicker.min.js"></script>
     </head>
     <body class="hold-transition skin-blue fixed sidebar-mini">
 

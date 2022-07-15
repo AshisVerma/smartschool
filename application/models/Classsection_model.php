@@ -74,7 +74,7 @@ class Classsection_model extends MY_Model {
 
     public function add($data, $sections) {
 
-
+      
 
         $this->db->trans_start(); # Starting Transaction
 
@@ -123,6 +123,9 @@ class Classsection_model extends MY_Model {
             }
 
         } else {
+            print_r($data);
+            echo "classes added";
+            die;
 
             $this->db->insert('classes', $data);
 
@@ -410,6 +413,41 @@ class Classsection_model extends MY_Model {
 
 
 
+    }
+
+    function getDetailsByClassId($id){
+
+         try {
+        $this->db->trans_start(FALSE);
+        $section_data=array();
+        $this->db->select("section_id");
+          $this->db->where("class_id",$id);
+          $data=$this->db->get("class_sections")->result_array();
+
+         foreach($data as $list){
+            $this->db->select(["section","id"]);
+           $this->db->where("id",$list['section_id']);
+           $data=$this->db->get("sections")->row();
+           array_push($section_data,$data);
+         }
+
+         return $section_data;
+        $this->db->trans_complete();
+
+       
+        $db_error = $this->db->error();
+        if (!empty($db_error)) {
+            throw new Exception('Database error! Error Code [' . $db_error['code'] . '] Error: ' . $db_error['message']);
+            return false; 
+        }
+        return TRUE;
+    } catch (Exception $e) {
+        
+        log_message('error: ',$e->getMessage());
+        return;
+    }
+        
+         
     }
 
 
