@@ -6,6 +6,7 @@
 
 
 </style>
+
 <div class="content-wrapper" style="min-height: 946px;">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -17,9 +18,13 @@
   <section class="content">
   <div class="row">
 
+
     <div class="col-sm-12"> <?php if ($this->session->flashdata('msg')) { ?>
                                 <?php echo $this->session->flashdata('msg') ?>
                             <?php } ?></div>
+                            <div class="col-md-12">
+                              <a href="<?php echo base_url()?>admin/Gmeetclasses" class="btn btn-primary" style="float:right;"><i class="fa fa-list"></i> List</a>
+                            </div>
     <div class="col-sm-6 col-md-6 col-lg-6">
 
   
@@ -68,17 +73,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Select Staff</label>
-                              <select class="form-control" name="staff">
+                              <select class="form-control" name="staff" id="select-staff">
                                 <option>Select Staff</option>
                               </select>
                                 <span class="text-danger"><?php echo form_error('duration'); ?></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Select Class</label>
-                              <select class="form-control" name="class">
+                              <select class="form-control" name="class" id="select-class">
                                 <option>Select Class</option>
                                  <?php foreach($class as $class_list){?>
-                                  <option><?php echo $class_list['class']; ?></option>
+                                  <option value="<?php echo $class_list['id']; ?>"><?php echo $class_list['class']; ?></option>
                               <?php }?>
                               </select>
                                 <span class="text-danger"><?php echo form_error('duration'); ?></span>
@@ -86,7 +91,7 @@
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Select Section</label>
-                              <select class="form-control" name="section">
+                              <select class="form-control" name="section" id="select-section">
                                 <option>Select Section</option>
                               </select>
                                 <span class="text-danger"><?php echo form_error('duration'); ?></span>
@@ -144,9 +149,19 @@
 </div>
 
 <script type="text/javascript">
+
+
+
+
+
+
+// with a title
+ 
+
   $(document).ready(function(){
    $("#role").change(function(){
     var role_id=$(this).val();
+
     $.ajax({
       type:"GET",
       url:"<?php echo base_url()?>admin/Gmeetclasses/getStaff",
@@ -154,12 +169,95 @@
         role_id:role_id,
       },
       success:function(response){
-        console.log(response);
+        response=JSON.parse(response);
+      
+          if(response.data.length>0){
+             $(response.data).each(function(index,data){
+          if(data.name===null){
+            
+          }
+          else{
+             var option=document.createElement("OPTION");
+          option.value=data.id;
+          option.innerHTML=data.name+"( "+data.department_name+" )";
+          $("#select-staff").append(option);
+          }
+         
+        });
+          }
+          else{
+              toastr.warning("No Any Staff Created in this role",{
+  positionClass:'toast-bottom-right',
+   progressBar:true
+
+
+});
+               var option=$("#select-staff option");
+              $(option).each(function(index,data){
+               $(option[index+1]).remove();
+              });
+          }
+          
       }
     });
    });
+
+
+   ///get section 
+   $("#select-class").change(function(){
+    var class_id=$(this).val();
+       $.ajax({
+      type:"GET",
+      url:"<?php echo base_url()?>admin/Gmeetclasses/getSection",
+      data:{
+        class_id:class_id,
+      },
+      success:function(response){
+      
+        response=JSON.parse(response);
+       
+          if(response.data.length>0){
+            $(response.data).each(function(index,data){
+          var option=document.createElement("OPTION");
+        option.value=data.id;
+        option.innerHTML=data.section;
+        $("#select-section").append(option);
+         
+         
+        });
+          }
+          else{
+             toastr.warning("No Any section Created in this Class");
+              var option=$("#select-section option");
+              $(option).each(function(index,data){
+               $(option[index+1]).remove();
+              });
+          }
+        
+      }
+    });
+   });
+   //end get section
   
   });
+<?php if($this->session->flashdata("msg")=="success"){?>
+
+  toastr.success("Successfully Added",{
+  positionClass:'toast-bottom-right',
+   progressBar:true
+
+
+});
+
+<?php } else {?>
+
+toastr.warning("Whoops! something is wrong",{
+  positionClass:'toast-bottom-right',
+   progressBar:true
+
+
+});
+<?php }?>
 
 
   

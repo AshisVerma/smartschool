@@ -97,7 +97,7 @@ class Incomegroup extends Admin_Controller {
         );
         $checkExist=$this->Incomegroup_model->checkExist($data);
         if(!$checkExist){
-           $create=$this->Incomegroup_model->add($data);
+           $create=$this->Incomegroup_model->add($daat);
            if($create){
               
             $this->session->set_flashdata("msg","<div class='alert alert-success'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Income Group  Registered successfully</div>");

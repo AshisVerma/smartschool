@@ -1049,6 +1049,77 @@ if ($this->rbac->hasPrivilege('online_examination', 'can_view')) {
 
 ?>
 
+<!----------------------- online exam -----------------> 
+<?php
+if ($this->module_lib->hasActive('online_examination')) {
+
+    if (($this->rbac->hasPrivilege('online_examination', 'can_view') || $this->rbac->hasPrivilege('question_bank', 'can_view'))) {
+
+        ?>
+
+                    <li class="treeview <?php echo set_Topmenu('Online_Examinations'); ?>">
+
+                        <a href="#">
+
+                            <i class="fa fa-video-camera ftlayer"></i> <span><?php echo ('Google Meeting') ; ?></span> <i class="fa fa-angle-left pull-right"></i>
+
+                        </a>
+
+                        <ul class="treeview-menu">
+
+                            <?php
+
+if ($this->rbac->hasPrivilege('online_examination', 'can_view')) {
+
+            ?>
+
+                                <li class="<?php echo set_Submenu('Online_Examinations/Onlineexam'); ?>"><a href="<?php echo base_url(); ?>admin/Gmeetclasses"><i class="fa fa-angle-double-right"></i> <?php echo "Live Classes" ?></a></li>
+
+                                <?php
+
+}
+
+        if ($this->rbac->hasPrivilege('question_bank', 'can_view')) {
+
+            ?>
+
+                               <li class="<?php echo set_Submenu('Online_Examinations/question'); ?>"><a href="<?php echo base_url(); ?>admin/googlemetting/add"><i class="fa fa-angle-double-right"></i> <?php echo "Live Meeting" ?></a></li>
+                                 <li class="<?php echo set_Submenu('Online_Examinations/question'); ?>"><a href="<?php echo base_url(); ?>admin/question"><i class="fa fa-angle-double-right"></i> <?php echo "Live Meeting Report" ?></a></li>
+
+                                  <li class="<?php echo set_Submenu('Online_Examinations/question'); ?>"><a href="<?php echo base_url(); ?>admin/question"><i class="fa fa-angle-double-right"></i> <?php echo "Live Classes Report" ?></a></li>
+
+                                   <li class="<?php echo set_Submenu('Online_Examinations/question'); ?>"><a href="<?php echo base_url(); ?>admin/question"><i class="fa fa-angle-double-right"></i> <?php echo "Google Meeting Setting" ?></a></li>
+
+                                <?php
+
+}
+
+        ?>
+
+
+
+
+
+
+
+                        </ul>
+
+                    </li>
+
+                    <?php
+
+}
+
+}
+
+
+
+
+
+?>
+
+<!----------------------- end of online exam -------------> 
+
 
 <?php
 

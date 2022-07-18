@@ -121,35 +121,45 @@
            <th>Date</th>
            <th>Duration</th>
            <th>Created By</th>
-           <th>Created For</th>
+          
            <th>Class</th>
            <th>Status</th>
 
            <th>Action</th>
          </tr>
-        <!--  <?php foreach($data['classroom'] as $key=>$classroom_list){?>
+         <?php foreach($gmeet as $key=>$gmeet_list){?>
 
         
 
           <tr>
             <td><?php echo $key+1;?></td>
-            <td><?php echo $classroom_list['room_no']?></td>
-            <td><?php echo $classroom_list['capacity'];?></td>
+            <td><?php echo $gmeet_list['class_title']?></td>
+            <td><?php echo $gmeet_list['class_date'];?></td>
+            <td><?php echo $gmeet_list['duration'];?></td>
+           <td> <?php echo $gmeet_list['role_name'];?></td>
+            <td><?php echo $gmeet_list['class'];?>(<?php echo $gmeet_list['section'];?>)</td>
             <td>
-              <?php if($classroom_list['status']==1){?>
-                <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="badge badge-success p-2 p-font" style="padding: 6px 10px;background: green;color: white;font-size: 12px;border-radius: 3rem;" data-toggle="tooltip" title="Status Active">Active</a>
-
-              <?php } 
-              else {?>
-                 <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>"  class="badge badge-success p-2 p-font" style="padding: 6px 10px;background: red;color: white;font-size: 12px;border-radius: 3rem;" data-toggle="tooltip" title="Status Deactive">Deactive</a>
-
-              <?php }?>
-
+              <center><select class="form-control status-change" style="width:fit-content;" id="status-change" data="<?php echo $gmeet_list['id'] ?>">
+                <option <?php if($gmeet_list['status']=="Awaited") echo "selected"?>>Awaited</option>
+                <option <?php if($gmeet_list['status']=="Canceled") echo "selected"?>>Canceled</option>
+                <option <?php if($gmeet_list['status']=="Finished") echo "selected"?>>Finished</option>
+              </select></center>
             </td>
-            <td> <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="btn btn-success edit-btn" data="<?php echo $classroom_list['id']?>"><i class="fa fa-edit"></i></a>
-              <a href="<?php echo base_url()?>admin/classroom/status/<?php echo $classroom_list['id']?>" class="btn btn-danger delete-btn" data="<?php echo $classroom_list['id']?>"><i class="fa fa-trash"></i></a></td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <a href="<?php echo $gmeet_list['url'] ?>" class="badge badge-success" style="padding:7px 10px;background: #66aa18 !important;border-radius: 3rem;">
+              
+                <i class="fa fa-video-camera"></i> Start
+             
+              </a>
+             <a href="" class="btn btn-danger delete-btn" data="<?php echo $gmeet_list['id']?>">
+                <i class="fa fa-trash-o"></i>
+             </a>
+              </div>
+            </td>
+            
           </tr>
-        <?php }?> -->
+        <?php }?>
        </table> 
        <div class="demo"></div>
       </div>
@@ -169,7 +179,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Do you really want to delete these Classroom ? </p>
+        <p>Do you really want to delete these Google Classes ? </p>
       </div>
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -206,13 +216,18 @@
         $("#delete-modal").modal("show");
         $(".delete-confirm-btn").click(function(){
           $("#delete-modal").modal("hide");
-          window.location.href="<?php echo base_url()?>/admin/classroom/delete/"+id;
+          window.location.href="<?php echo base_url()?>/admin/Gmeetclasses/delete/"+id;
         });
 
       });
     });
   
-  
+  //status change
+  $(".status-change").change(function(){
+    var status=$(this).val();
+    var id=$(this).attr("data");
+    window.location.href="<?php echo base_url()?>admin/Gmeetclasses/status?s="+btoa(status)+"&id="+btoa(id);
+  });
   });
 
 

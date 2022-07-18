@@ -777,6 +777,8 @@ class Staff extends Admin_Controller
 
     {
 
+
+
         $this->session->set_userdata('top_menu', 'HR');
 
         $this->session->set_userdata('sub_menu', 'admin/staff');
@@ -835,7 +837,7 @@ class Staff extends Admin_Controller
 
         }
 
-
+ 
 
         $this->form_validation->set_rules('name', $this->lang->line('name'), 'trim|required|xss_clean');
 
@@ -881,7 +883,7 @@ class Staff extends Admin_Controller
 
         if ($this->form_validation->run() == true) {
 
-
+      
 
             $custom_field_post  = $this->input->post("custom_fields[staff]");
 
@@ -1530,7 +1532,7 @@ class Staff extends Admin_Controller
 
 
                 $data_doc = array('id' => $staff_id, 'resume' => $resume, 'joining_letter' => $joining_letter, 'resignation_letter' => $resignation_letter, 'other_document_name' => $fourth_title, 'other_document_file' => $fourth_doc);
-
+                    
                 $this->staff_model->add($data_doc);
 
 

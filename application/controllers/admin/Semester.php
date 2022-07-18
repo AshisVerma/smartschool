@@ -153,6 +153,7 @@ class Semester extends Admin_Controller {
 
 
     public function list(){
+
          $json_array = array();
         $this->session->set_userdata('top_menu', 'Semester');
         $this->session->set_userdata('sub_menu', 'semester/index');
@@ -173,7 +174,8 @@ class Semester extends Admin_Controller {
     }
 
 
-    public function year($year){
+    public function year($year=null){
+       
 
        $json_array = array();
         $this->session->set_userdata('top_menu', 'Semester');
