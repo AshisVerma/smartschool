@@ -90,14 +90,16 @@ class Incomegroup extends Admin_Controller {
         }
       
 
-     
+      
          $data=array(
             "name"=>$this->input->post("name"),
             "income_head"=>$this->input->post("income-head"),
         );
+
+
         $checkExist=$this->Incomegroup_model->checkExist($data);
         if(!$checkExist){
-           $create=$this->Incomegroup_model->add($daat);
+           $create=$this->Incomegroup_model->add($data);
            if($create){
               
             $this->session->set_flashdata("msg","<div class='alert alert-success'><i class='fa fa-times-circle close' data-dismiss='alert'></i>Income Group  Registered successfully</div>");

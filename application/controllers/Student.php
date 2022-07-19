@@ -36,7 +36,7 @@ class Student extends Admin_Controller
 
         $this->load->model(["classteacher_model","Studyyear_model"]);
 
-        $this->load->model(array("timeline_model", "student_edit_field_model","Fee_model"));
+        $this->load->model(array("timeline_model", "student_edit_field_model","Fee_model","TransportationArea_model","TransportationLine_model"));
 
         $this->blood_group        = $this->config->item('bloodgroup');
 
@@ -685,6 +685,8 @@ class Student extends Admin_Controller
     public function create()
 
     {
+
+
        
         if (!$this->rbac->hasPrivilege('student', 'can_add')) {
 
@@ -737,13 +739,14 @@ class Student extends Admin_Controller
 
         $data['hostelList']         = $hostelList;
 
-        $vehroute_result            = $this->vehroute_model->get();
+        // $vehroute_result            = $this->vehroute_model->get();
 
-        $data['vehroutelist']       = $vehroute_result;
+        // $data['vehroutelist']       = $vehroute_result;
 
         $custom_fields              = $this->customfield_model->getByBelong('students');
         $year                       =$this->Studyyear_model->get();
-
+        $transportationarea=$this->TransportationArea_model->get();
+        $data['transportationarea']=$transportationarea;
 
       
         foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
@@ -1585,12 +1588,13 @@ class Student extends Admin_Controller
             } else {
 
 
+                  $transportationarea=$this->TransportationArea_model->get();
 
                 $data['error_message'] = $this->lang->line('admission_no') . ' ' . $admission_no . ' ' . $this->lang->line('already_exists');
 
                 $this->load->view('layout/header', $data);
 
-                $this->load->view('student/studentCreate', $data);
+                $this->load->view('student/studentCreate', ['data'=>$data,"transportationarea"=>$transportationarea]);
 
                 $this->load->view('layout/footer', $data);
 
@@ -5327,15 +5331,29 @@ class Student extends Admin_Controller
     //get fee on the base of selected class year and level
     public function getfee(){
 
+
         $class=$this->input->get("class");
         $level=$this->input->get("level");
         $year=$this->input->get("year");
+
          $data=$this->Fee_model->getFee($year,$class,$level);
 
          if(!empty($data)){
             echo json_encode(['data'=>$data]);
          }
+         else{
+         $data=array();
+         echo json_encode(['data'=>$data]);
+         }
         
+
+    }
+
+
+    public function getTransportationLineDetails(){
+        $transportationarea= $this->input->get("transportationarea");
+       $data= $this->TransportationLine_model->getByTransportaion($transportationarea);
+         echo json_encode(['data'=>$data]);
 
     }
 

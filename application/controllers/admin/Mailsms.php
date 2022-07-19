@@ -66,6 +66,8 @@ class Mailsms extends Admin_Controller
 
     public function compose()
     {
+
+       
         if (!$this->rbac->hasPrivilege('email', 'can_view')) {
             access_denied();
         }

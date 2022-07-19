@@ -8,6 +8,7 @@ class Incomegroup_model extends MY_Model{
     }
 
     function add($data){
+       
      $query=$this->db->insert("incomegroup",$data);
      if($query){
         return true;
